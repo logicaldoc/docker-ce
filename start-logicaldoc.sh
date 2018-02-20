@@ -12,6 +12,18 @@ else
  printf "LogicalDOC already installed\n"
 fi
 
-/opt/logicaldoc/bin/logicaldoc.sh run
+case $1 in
+run)     echo "run";
+	 /opt/logicaldoc/bin/logicaldoc.sh run
+         ;;
+start)   echo "start";
+	 /opt/logicaldoc/bin/logicaldoc.sh start
+         ;;
+stop)    echo "STOOP!!!";
+         /opt/logicaldoc/bin/logicaldoc.sh stop
+         ;;
+*) /opt/logicaldoc/bin/logicaldoc.sh $1
+   ;;
+esac
 
 

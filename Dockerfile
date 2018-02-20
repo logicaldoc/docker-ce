@@ -10,12 +10,13 @@ ENV DEBIAN_FRONTEND="noninteractive"
 ENV CATALINA_HOME="/opt/logicaldoc/tomcat"
 ENV JAVA_HOME="/usr/lib/jvm/java-8-oracle/"
 ENV DB_ENGINE="mysql"
+ENV DB_DBHOST="mysql-ld"
+ENV DB_PORT="3306"
 ENV DB_NAME="logicaldoc"
 ENV DB_INSTANCE=""
 ENV DB_USER="ldoc"
 ENV DB_PASSWORD="changeme"
-ENV DB_DBHOST="mysql-ld"
-ENV DB_PORT="3306"
+ENV DB_MANUALURL="false"
 
 
 RUN mkdir /opt/logicaldoc
@@ -65,4 +66,4 @@ VOLUME /opt/logicaldoc/repository
 
 EXPOSE 8080
 
-CMD /opt/logicaldoc/start-logicaldoc.sh
+CMD ["/opt/logicaldoc/start-logicaldoc.sh", "run"]

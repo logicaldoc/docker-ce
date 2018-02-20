@@ -24,7 +24,7 @@
         <entry key="dbusername" value="{{ DB_USER | default('ldoc') }}"/>
         <entry key="dbinstance" value="{{ DB_INSTANCE | default('') }}"/>
         <entry key="dbhost" value="{{ DB_DBHOST | default('mysql-ld') }}"/>
-        <entry key="dbmanualurl" value="false"/>
+        <entry key="dbmanualurl" value="{{ DB_MANUALURL | default('false') }}"/>
     </com.izforge.izpack.panels.userinput.UserInputPanel>
     <com.izforge.izpack.panels.userinput.UserInputPanel id="panel_application">
         <entry key="shutdownport" value="9005"/>
