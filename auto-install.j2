@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<AutomatedInstallation langpack="eng">
+    <com.izforge.izpack.panels.hello.HelloPanel id="HelloPanel_0"/>
+    <com.logicaldoc.installer.LDTargetPanel id="target_directory">
+        <installpath>/opt/logicaldoc</installpath>
+    </com.logicaldoc.installer.LDTargetPanel>
+    <com.izforge.izpack.panels.packs.PacksPanel id="PacksPanel_2">
+        <pack index="0" name="Base" selected="true"/>
+    </com.izforge.izpack.panels.packs.PacksPanel>
+    <com.izforge.izpack.panels.install.InstallPanel id="InstallPanel_3"/>
+    <com.izforge.izpack.panels.userinput.UserInputPanel id="panel_registration">
+        <entry key="website" value=""/>
+        <entry key="organization" value="Company"/>
+        <entry key="name" value="Docker Community Test"/>
+        <entry key="email" value="info@company.com"/>
+    </com.izforge.izpack.panels.userinput.UserInputPanel>
+    <com.izforge.izpack.panels.userinput.UserInputPanel id="panel_database1">
+        <entry key="dbengine" value="{{ DB_ENGINE | default('mysql') }}"/>
+    </com.izforge.izpack.panels.userinput.UserInputPanel>
+    <com.izforge.izpack.panels.userinput.UserInputPanel id="panel_database2">
+        <entry key="dbport" value="{{ DB_PORT | default('3306') }}"/>
+        <entry key="dbdatabase" value="{{ DB_NAME | default('logicaldoc') }}"/>
+        <entry key="dbpassword" value="{{ DB_PASSWORD | default('changeme') }}"/>
+        <entry key="dbusername" value="{{ DB_USER | default('ldoc') }}"/>
+        <entry key="dbinstance" value="{{ DB_INSTANCE | default('') }}"/>
+        <entry key="dbhost" value="{{ DB_DBHOST | default('mysql-ld') }}"/>
+        <entry key="dbmanualurl" value="false"/>
+    </com.izforge.izpack.panels.userinput.UserInputPanel>
+    <com.izforge.izpack.panels.userinput.UserInputPanel id="panel_application">
+        <entry key="shutdownport" value="9005"/>
+        <entry key="maxmemory" value="{{ LDOC_MEMORY | default('2000') }}"/>
+        <entry key="httpport" value="8080"/>
+        <entry key="httpsport" value="8443"/>
+        <entry key="architecture" value="64bit"/>
+    </com.izforge.izpack.panels.userinput.UserInputPanel>
+    <com.izforge.izpack.panels.userinput.UserInputPanel id="panel_extapps">
+        <entry key="openoffice" value="/usr/lib/libreoffice"/>
+        <entry key="tesseract" value="/usr/bin/tesseract"/>
+        <entry key="clamscan" value="/usr/bin/clamscan"/>
+        <entry key="openssl" value="/usr/bin/openssl"/>
+        <entry key="convert" value="/usr/bin/convert"/>
+        <entry key="ghostscript" value="/usr/bin/gs"/>
+    </com.izforge.izpack.panels.userinput.UserInputPanel>
+    <com.izforge.izpack.panels.process.ProcessPanel id="panel_process"/>
+    <com.izforge.izpack.panels.finish.FinishPanel id="FinishPanel_12"/>
+</AutomatedInstallation>
