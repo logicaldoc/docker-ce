@@ -1,22 +1,19 @@
-version: '3.1'
+version: "3.1"
 
 services:
 
   logicaldoc:
     depends_on:
-      lddb:
-        condition: service_healthy        
+      - mysql-ld
+    command: ["./wait-for-it.sh", "mysql-ld:3306", "-t", "30", "--", "/opt/logicaldoc/start-logicaldoc.sh", "run"]       
     image: logicaldoc/logicaldoc-ce
-    restart: always
     ports:
       - 8080:8080
     environment:
-      - LDOC_MEMORY: 2000
+      - LDOC_MEMORY=2000
 
-  lddb:
-    container_name: mysql-ld  
+  mysql-ld: 
     image: mysql:5.7
-    restart: always
     environment:
       - MYSQL_ROOT_PASSWORD=example
       - MYSQL_DATABASE=logicaldoc
