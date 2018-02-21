@@ -1,0 +1,22 @@
+version: '2.0'
+services:
+  logicaldoc:
+    depends_on:
+      - lddb
+    command: ["./wait-for-it.sh", "mysql-ld:3306", "-t", "30", "--", "/opt/logicaldoc/start-logicaldoc.sh", "run"]      
+    image: logicaldoc-ce
+    restart: always
+    ports:
+      - 8080:8080
+    environment:
+      - LDOC_MEMORY=2000
+
+  lddb:
+    container_name: mysql-ld  
+    image: mysql:5.7
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=example
+      - MYSQL_DATABASE=logicaldoc
+      - MYSQL_USER=ldoc
+      - MYSQL_PASSWORD=changeme      
