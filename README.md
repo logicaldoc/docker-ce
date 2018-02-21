@@ -70,34 +70,33 @@ Some docker-compose examples are available in the repository of this container o
 Example `stack.yml` for `logicaldoc-ce`:
 
 ```yaml
-version: '3.1'
+version: "3.1"
 
 services:
 
   logicaldoc:
     depends_on:
-      - mysql-ld  
+      - mysql-ld
+    command: ["./wait-for-it.sh", "mysql-ld:3306", "-t", "30", "--", "/opt/logicaldoc/start-logicaldoc.sh", "run"]
     image: logicaldoc/logicaldoc-ce
-    restart: always
     ports:
       - 8080:8080
     environment:
-      - LDOC_MEMORY: 2000
+      - LDOC_MEMORY=2000
 
-  mysql-ld:
+  mysql-ld: 
     image: mysql:5.7
-    restart: always
     environment:
-      - MYSQL_ROOT_PASSWORD: example
-      - MYSQL_DATABASE: logicaldoc
-      - MYSQL_USER: ldoc
-      - MYSQL_PASSWORD: changeme
+      - MYSQL_ROOT_PASSWORD=example
+      - MYSQL_DATABASE=logicaldoc
+      - MYSQL_USER=ldoc
+      - MYSQL_PASSWORD=changeme
       
 ```
 
 [![Try in PWD](https://github.com/play-with-docker/stacks/raw/cff22438cb4195ace27f9b15784bbb497047afa7/assets/images/button.png)](http://play-with-docker.com?stack=https://raw.githubusercontent.com/logicaldoc/logicaldoc-ce/master/stack.yml)
 
-Run `docker stack deploy -c stack.yml logicaldoc` (or `docker-compose -f stack.yml up`), wait for it to initialize completely, and visit `http://swarm-ip:8080`, `http://localhost:8080`, or `http://host-ip:8080` (as appropriate).
+Run `docker stack deploy -c stack.yml logicaldocce` (or `docker-compose -f docker-compose-mysql-wf.yml up`), wait for it to initialize completely, and visit `http://swarm-ip:8080`, `http://localhost:8080`, or `http://host-ip:8080` (as appropriate).
 
 
 
