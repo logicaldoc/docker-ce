@@ -22,6 +22,7 @@ ENV DB_MANUALURL="false"
 RUN mkdir /opt/logicaldoc
 ADD start-logicaldoc.sh /opt/logicaldoc
 ADD auto-install.j2 /opt/logicaldoc
+ADD wait-for-it.sh /
 
 RUN chmod +x /opt/logicaldoc/start-logicaldoc.sh
 
