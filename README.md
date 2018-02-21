@@ -44,10 +44,10 @@ This will run the same image as above but with 4000 MB memory allocated to Logic
 
 Then, access it via `http://localhost:8080` or `http://host-ip:8080` in a browser.
 
-If you'd like to use an external database instead of a linked `mysql-ld` container, specify the hostname and port with `DB_HOST` along with the password in `WORDPRESS_DB_PASSWORD` and the username in `WORDPRESS_DB_USER` (if it is something other than `root`):
+If you'd like to use an external database instead of a linked `mysql-ld` container, specify the hostname with `DB_HOST` and port with `DB_PORT` along with the password in `DB_PASSWORD` and the username in `DB_USER` (if it is something other than `ldoc`):
 
 ```console
-$ docker run -d -p 8080:8080 -e DB_HOST=10.1.2.3 -e DB_USER=... -e DB_PASSWORD=... logicaldoc-ce
+$ docker run -d -p 8080:8080 -e DB_HOST=10.1.2.3 -e DB_PORT=3306 -e DB_USER=... -e DB_PASSWORD=... logicaldoc/logicaldoc-ce
 ```
 
 ## Environment Variables
