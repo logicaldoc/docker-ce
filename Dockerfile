@@ -20,16 +20,9 @@ ENV DB_MANUALURL="false"
 
 
 RUN mkdir /opt/logicaldoc
-ADD start-logicaldoc.sh /opt/logicaldoc
-ADD auto-install.j2 /opt/logicaldoc
-ADD wait-for-it.sh /
-
-RUN chmod +x /opt/logicaldoc/start-logicaldoc.sh
-
-# prepare system for mysql installation
-#RUN apt-get update && apt-get upgrade -y
-RUN apt-get update
-RUN apt-get install -y perl pwgen --no-install-recommends 
+COPY start-logicaldoc.sh /opt/logicaldoc
+COPY auto-install.j2 /opt/logicaldoc
+COPY wait-for-it.sh /
 
 # prepare system for java installation
 RUN apt-get -y install software-properties-common python-software-properties
@@ -42,23 +35,23 @@ RUN \
   apt-get update && \
   apt-get install -y oracle-java8-installer
 
-# some required software for LogicalDOC plugins
+# Packages needed to install LogicalDOC CE
 RUN apt-get -y install \
+    mysql-client \
+    curl \    
+    unzip \    
     imagemagick \
     ghostscript \
-    curl \
-    mysql-client \
-    unzip
+    python-jinja2 \
+    python-pip
 
-#ADD logicaldoc-community-installer-7.7.3.zip /opt/logicaldoc
-
-# Download and unzip logicaldoc installer 
+# Download and unzip LogicalDOC CE installer 
 RUN curl -L https://sourceforge.net/projects/logicaldoc/files/distribution/LogicalDOC%20CE%207.7/logicaldoc-community-installer-${LDOC_VERSION}.zip/download \
     -o /opt/logicaldoc/logicaldoc-community-installer-${LDOC_VERSION}.zip  && \
     unzip /opt/logicaldoc/logicaldoc-community-installer-${LDOC_VERSION}.zip -d /opt/logicaldoc && \
     rm /opt/logicaldoc/logicaldoc-community-installer-${LDOC_VERSION}.zip
 
-RUN apt-get -y install python-jinja2 python-pip
+# Install j2cli for the transformation of the templates (Jinja2)
 RUN pip install j2cli
 
 #volumes for persistent storage

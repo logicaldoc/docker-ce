@@ -21,13 +21,13 @@ LogicalDOC CE is 100% free software, supports all major DBMS and this particular
 
 ### How to use this image
 
-## Start a LogicalDOC instance linked to a MySQL container
-### 1) Run the MySQL container
+**Start a LogicalDOC instance linked to a MySQL container**
+1. Run the MySQL container
 ```Shell
 docker run -d --name=mysql-ld --env="MYSQL_ROOT_PASSWORD=mypassword" --env="MYSQL_DATABASE=logicaldoc" --env="MYSQL_USER=ldoc" --env="MYSQL_PASSWORD=changeme" mysql
 ```
 
-### 2) Run the LogicalDOC container
+2. Run the LogicalDOC container
 ```Shell
 docker run -d -p 8080:8080 --link mysql-ld logicaldoc/logicaldoc-ce
 ```
@@ -96,7 +96,7 @@ services:
 
 [![Try in PWD](https://github.com/play-with-docker/stacks/raw/cff22438cb4195ace27f9b15784bbb497047afa7/assets/images/button.png)](http://play-with-docker.com?stack=https://raw.githubusercontent.com/logicaldoc/logicaldoc-ce/master/stack.yml)
 
-Run `docker stack deploy -c stack.yml logicaldocce` (or `docker-compose -f docker-compose-mysql-wf.yml up`), wait for it to initialize completely, and visit `http://swarm-ip:8080`, `http://localhost:8080`, or `http://host-ip:8080` (as appropriate).
+Run `docker stack deploy -c stack.yml logicaldocce` , wait for it to initialize completely, and visit `http://swarm-ip:8080`, `http://localhost:8080`, or `http://host-ip:8080` (as appropriate).
 
 
 
