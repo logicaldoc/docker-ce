@@ -25,7 +25,8 @@ COPY auto-install.j2 /opt/logicaldoc
 COPY wait-for-it.sh /
 
 # prepare system for java installation
-RUN apt-get -y install software-properties-common python-software-properties
+RUN apt-get update && \
+  apt-get -y install software-properties-common python-software-properties
 
 # install oracle java
 RUN \
@@ -47,7 +48,7 @@ RUN apt-get -y install \
 
 # Download and unzip LogicalDOC CE installer 
 RUN curl -L https://sourceforge.net/projects/logicaldoc/files/distribution/LogicalDOC%20CE%207.7/logicaldoc-community-installer-${LDOC_VERSION}.zip/download \
-    -o /opt/logicaldoc/logicaldoc-community-installer-${LDOC_VERSION}.zip  && \
+    -o /opt/logicaldoc/logicaldoc-community-installer-${LDOC_VERSION}.zip && \
     unzip /opt/logicaldoc/logicaldoc-community-installer-${LDOC_VERSION}.zip -d /opt/logicaldoc && \
     rm /opt/logicaldoc/logicaldoc-community-installer-${LDOC_VERSION}.zip
 
