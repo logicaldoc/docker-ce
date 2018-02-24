@@ -4,10 +4,12 @@
 set -e
 
 host="$1"
+export PGPASSWORD="changeme"
+
 shift
 cmd="$@"
 
-until psql -h "$host" -U "postgres" -c '\q'; do
+until psql -h "$host" -U "ldoc" -d "logicaldoc" -c '\q'; do
   >&2 echo "Postgres is unavailable - sleeping"
   sleep 1
 done

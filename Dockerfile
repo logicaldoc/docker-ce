@@ -10,7 +10,7 @@ ENV DEBIAN_FRONTEND="noninteractive"
 ENV CATALINA_HOME="/opt/logicaldoc/tomcat"
 ENV JAVA_HOME="/usr/lib/jvm/java-8-oracle/"
 ENV DB_ENGINE="mysql"
-ENV DB_DBHOST="mysql-ld"
+ENV DB_HOST="mysql-ld"
 ENV DB_PORT="3306"
 ENV DB_NAME="logicaldoc"
 ENV DB_INSTANCE=""
@@ -23,6 +23,7 @@ RUN mkdir /opt/logicaldoc
 COPY start-logicaldoc.sh /opt/logicaldoc
 COPY auto-install.j2 /opt/logicaldoc
 COPY wait-for-it.sh /
+COPY wait-for-postgres.sh /
 
 # prepare system for java installation
 RUN apt-get update && \
@@ -38,19 +39,24 @@ RUN \
 
 # Packages needed to install LogicalDOC CE
 RUN apt-get -y install \
-    mysql-client \
     curl \    
     unzip \    
     imagemagick \
     ghostscript \
     python-jinja2 \
-    python-pip
+    python-pip \
+    mysql-client \
+    postgresql-client
 
 # Download and unzip LogicalDOC CE installer 
 RUN curl -L https://sourceforge.net/projects/logicaldoc/files/distribution/LogicalDOC%20CE%207.7/logicaldoc-community-installer-${LDOC_VERSION}.zip/download \
     -o /opt/logicaldoc/logicaldoc-community-installer-${LDOC_VERSION}.zip && \
     unzip /opt/logicaldoc/logicaldoc-community-installer-${LDOC_VERSION}.zip -d /opt/logicaldoc && \
     rm /opt/logicaldoc/logicaldoc-community-installer-${LDOC_VERSION}.zip
+
+#COPY logicaldoc-community-installer-${LDOC_VERSION}.zip /opt/logicaldoc/
+#RUN unzip /opt/logicaldoc/logicaldoc-community-installer-${LDOC_VERSION}.zip -d /opt/logicaldoc && \
+#	rm /opt/logicaldoc/logicaldoc-community-installer-${LDOC_VERSION}.zip
 
 # Install j2cli for the transformation of the templates (Jinja2)
 RUN pip install j2cli
