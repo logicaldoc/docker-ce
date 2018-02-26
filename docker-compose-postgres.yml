@@ -15,7 +15,7 @@ services:
  logicaldoc:
   depends_on:
    - db
-  command: ["./wait-for-postgres.sh", "ld-postgres", "/opt/logicaldoc/start-logicaldoc.sh run", "run"]
+  command: ["./wait-for-postgres.sh", "ld-postgres", "logicaldoc", "ldoc", "changeme", "/opt/logicaldoc/start-logicaldoc.sh run", "run"]
   container_name: logicaldoc-ce
   image: logicaldoc/logicaldoc-ce
   ports:

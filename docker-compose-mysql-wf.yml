@@ -4,7 +4,7 @@ services:
     depends_on:
       - lddb
     command: ["./wait-for-it.sh", "mysql-ld:3306", "-t", "30", "--", "/opt/logicaldoc/start-logicaldoc.sh", "run"]      
-    image: logicaldoc-ce
+    image: logicaldoc/logicaldoc-ce
     restart: always
     ports:
       - 8080:8080
