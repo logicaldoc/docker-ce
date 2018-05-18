@@ -1,14 +1,13 @@
 # LogicalDOC Document Management System ( https://www.logicaldoc.com )
-FROM ubuntu:16.04
+FROM openjdk:10-jdk
 
-MAINTAINER "Alessandro Gasparini" <devel@logicaldoc.com>
+MAINTAINER LogicalDOC <packagers@logicaldoc.com>
 
 # set default variables for LogicalDOC install
-ENV LDOC_VERSION="7.7.3"
+ENV LDOC_VERSION="7.7.6"
 ENV LDOC_MEMORY="2000"
 ENV DEBIAN_FRONTEND="noninteractive"
 ENV CATALINA_HOME="/opt/logicaldoc/tomcat"
-ENV JAVA_HOME="/usr/lib/jvm/java-8-oracle/"
 ENV DB_ENGINE="mysql"
 ENV DB_HOST="mysql-ld"
 ENV DB_PORT="3306"
@@ -25,17 +24,9 @@ COPY auto-install.j2 /opt/logicaldoc
 COPY wait-for-it.sh /
 COPY wait-for-postgres.sh /
 
-# prepare system for java installation
+# prepare system for java installation (to be removed)
 RUN apt-get update && \
-  apt-get -y install software-properties-common python-software-properties
-
-# install oracle java
-RUN \
-  echo debconf shared/accepted-oracle-license-v1-1 select true | debconf-set-selections && \
-  echo debconf shared/accepted-oracle-license-v1-1 seen true | debconf-set-selections && \
-  add-apt-repository -y ppa:webupd8team/java && \
-  apt-get update && \
-  apt-get install -y oracle-java8-installer
+  apt-get -y install software-properties-common
 
 # Packages needed to install LogicalDOC CE
 RUN apt-get -y install \
@@ -46,7 +37,9 @@ RUN apt-get -y install \
     python-jinja2 \
     python-pip \
     mysql-client \
-    postgresql-client
+    postgresql-client \
+    vim \
+    nano
 
 # Download and unzip LogicalDOC CE installer 
 RUN curl -L https://sourceforge.net/projects/logicaldoc/files/distribution/LogicalDOC%20CE%207.7/logicaldoc-community-installer-${LDOC_VERSION}.zip/download \
