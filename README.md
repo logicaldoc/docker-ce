@@ -50,15 +50,15 @@ If you'd like to use an external database instead of a linked `mysql-ld` contain
 $ docker run -d -p 8080:8080 -e DB_HOST=10.1.2.3 -e DB_PORT=3306 -e DB_USER=... -e DB_PASSWORD=... logicaldoc/logicaldoc-ce
 ```
 
-## Persistence of configurations and documents
-Start as a daemon with attached volumes to persist configuration and documents
+## Persistence of configuration and documents
+Start as a daemon with attached volumes to persist the configuration and the documents
 ```console
 $ docker run -d --name logicaldoc-ce --restart=always -p 8080:8080 -v logicaldoc-conf:/opt/logicaldoc/conf -v logicaldoc-repo:/opt/logicaldoc/repository --link mysql-ld logicaldoc/logicaldoc-ce
 ```
 
 All document files will be stored in the volume ``logicaldoc-repo``, the configuration files insead are in volume ``logicaldoc-conf`
 
-In this case the physical location of the ``logicaldoc-conf`` volume is ``/var/lib/docker/volumes/logicaldoc-conf/_data`` while the location of ``logicaldoc-repo`` volume is /var/lib/docker/volumes/logicaldoc-repo/_data
+In this case the physical location of the ``logicaldoc-conf`` volume is ``/var/lib/docker/volumes/logicaldoc-conf/_data`` while the location of ``logicaldoc-repo`` volume is ``/var/lib/docker/volumes/logicaldoc-repo/_data``
 
 
 ## Environment Variables
@@ -178,8 +178,58 @@ $ docker build -t logicaldoc/logicaldoc-ce --build-arg APT_PROXY=172.18.0.1:3142
 
 Replace the IP address `172.18.0.1` with the IP address of the Docker host used from which these commands are running.
 
+## Using Docker compose
 
-## Docker-Compose
+To deploy a complete production stack using the included Docker compose file execute:
+
+```console
+$ docker-compose -f docker-compose.yml up -d
+```
+
+This Docker compose file will provision 2 containers:
+
+- MySQL as the database
+- LogicalDOC CE using the above service container
+
+To stop the stack use:
+
+```console
+$ docker-compose -f docker-compose.yml stop
+```
+
+The stack will also create three volumes to store the data of each container. These are:
+
+- ldoc_conf - The LogicalDOC configuration container, normally called `logicaldoc-conf` when not using Docker compose.
+- ldoc_repository - The LogicalDOC DMS data container for documents and search indexes, normally called `logicaldoc-repo` when not using Docker compose.
+- ldoc_db - The database volume, in this case MySQL.
+
+### Stopping and starting with Docker compose 
+
+To stop the services use:
+
+```console
+$ docker-compose -f docker-compose.yml stop
+```
+
+To start the services again:
+
+```console
+$ docker-compose -f docker-compose.yml start
+```
+
+To remove the stopped containers:
+
+```console
+$ docker-compose -f docker-compose.yml rm -v
+```
+
+Destroys the containers and all the created volumes:
+
+```console
+$ docker-compose -f docker-compose.yml down -v
+
+
+### Docker compose examples
 Some docker-compose examples are available in the repository of this container on GitHub https://github.com/logicaldoc/logicaldoc-ce
 
 ## ... via [`docker stack deploy`](https://docs.docker.com/engine/reference/commandline/stack_deploy/) or [`docker-compose`](https://github.com/docker/compose)
