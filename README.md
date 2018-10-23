@@ -178,6 +178,22 @@ $ docker build -t logicaldoc/logicaldoc-ce --build-arg APT_PROXY=172.18.0.1:3142
 
 Replace the IP address `172.18.0.1` with the IP address of the Docker host used from which these commands are running.
 
+## Testing
+
+Start a Vagrant box from the include Vagrant file. This Vagrant box will builds the Docker image and then start a container:
+
+```console
+$ vagrant up
+```
+
+Create the same Vagrant box using an apt cacher to speed up the build:
+
+```console
+$ APT_PROXY=172.18.0.1:3142 vagrant up
+```
+
+Replace the IP address `172.18.0.1` with the IP address of the Docker host used from which these commands are running.
+
 ## Using Docker compose
 
 To deploy a complete production stack using the included Docker compose file execute:
@@ -227,6 +243,7 @@ Destroys the containers and all the created volumes:
 
 ```console
 $ docker-compose -f docker-compose.yml down -v
+```
 
 
 ### Docker compose examples
