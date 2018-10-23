@@ -53,7 +53,7 @@ $ docker run -d -p 8080:8080 -e DB_HOST=10.1.2.3 -e DB_PORT=3306 -e DB_USER=... 
 ## Persistence of configurations and documents
 Start as a daemon with attached volumes to persist configuration and documents
 ```console
-$ docker run -d --name logicaldoc-ce --restart=always -p 8080:8080 -v logicaldoc-conf:/opt/logicaldoc/conf -v logicaldoc-repo:/opt/logicaldoc/repository logicaldoc/logicaldoc-ce --link mysql-ld logicaldoc/logicaldoc-ce
+$ docker run -d --name logicaldoc-ce --restart=always -p 8080:8080 -v logicaldoc-conf:/opt/logicaldoc/conf -v logicaldoc-repo:/opt/logicaldoc/repository --link mysql-ld logicaldoc/logicaldoc-ce
 ```
 
 All document files will be stored in the volume ``logicaldoc-repo``, the configuration files insead are in volume ``logicaldoc-conf`
