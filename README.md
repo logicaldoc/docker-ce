@@ -50,6 +50,17 @@ If you'd like to use an external database instead of a linked `mysql-ld` contain
 $ docker run -d -p 8080:8080 -e DB_HOST=10.1.2.3 -e DB_PORT=3306 -e DB_USER=... -e DB_PASSWORD=... logicaldoc/logicaldoc-ce
 ```
 
+## Persistence of configurations and documents
+Start as a daemon with attached volumes to persist configuration and documents
+```console
+$ docker run -d --name logicaldoc-ce --restart=always -p 8080:8080 -v logicaldoc-conf:/opt/logicaldoc/conf -v logicaldoc-repo:/opt/logicaldoc/repository logicaldoc/logicaldoc-ce --link mysql-ld logicaldoc/logicaldoc-ce
+```
+
+All document files will be stored in the volume ``logicaldoc-repo``, the configuration files insead are in volume ``logicaldoc-conf`
+
+In this case the physical location of the ``logicaldoc-conf`` volume is ``/var/lib/docker/volumes/logicaldoc-conf/_data`` while the location of ``logicaldoc-repo`` volume is /var/lib/docker/volumes/logicaldoc-repo/_data
+
+
 ## Environment Variables
 The LogicalDOC image uses environment variables that allow to obtain a more specific setup.
 
@@ -61,6 +72,112 @@ The LogicalDOC image uses environment variables that allow to obtain a more spec
 * **DB_INSTANCE**: some databases require the instance specification
 * **DB_USER**: the username (default is 'ldoc')
 * **DB_PASSWORD**: the password (default is 'changeme')
+
+## Stopping and starting the container
+Assuming that you have assigned the "logicaldoc-ce" alias to the container
+
+To stop the container use:
+
+```console
+$ docker stop logicaldoc-ce
+```
+
+To start the container again:
+
+```console
+$ docker start logicaldoc-ce
+```
+
+## Configuration
+(You must have enabled data persistence with volume assignment)
+
+To edit the settings file, check the physical location of the ``logicaldoc-conf`` volume using:
+
+```console
+$ docker volume inspect logicaldoc-conf
+```
+
+Which should produce an output similar to this one:
+
+```console
+    [
+        {
+            "Name": "logicaldoc-conf",
+            "Driver": "local",
+            "Mountpoint": "/var/lib/docker/volumes/logicaldoc-conf/_data",
+            "Labels": null,
+            "Scope": "local"
+        }
+    ]
+```
+In this case the physical location of the ``logicaldoc-conf`` volume is ``/var/lib/docker/volumes/logicaldoc-conf/_data``.
+
+## Performing backups
+
+To backup the existing data, check the physical location of the ``logicaldoc-conf`` and ``logicaldoc-repo`` volumes using:
+
+```console
+$ docker volume inspect logicaldoc-conf
+```
+
+Which should produce an output similar to this one:
+
+```console
+    [
+        {
+            "Name": "logicaldoc-conf",
+            "Driver": "local",
+            "Mountpoint": "/var/lib/docker/volumes/logicaldoc-conf/_data",
+            "Labels": null,
+            "Scope": "local"
+        }
+    ]
+```
+
+```console
+$ sudo tar -zcvf backup.tar.gz /var/lib/docker/volumes/logicaldoc-conf/_data /var/lib/docker/volumes/logicaldoc-repo/_data
+$ sudo chown `whoami` backup.tar.gz
+```
+
+If an external PostgreSQL or MySQL database or database containers, these too need to be backed up using their respective procedures.
+
+
+## Restoring from a backup
+
+Uncompress the backup archive in the original docker volume using:
+
+```console
+$ sudo tar -xvzf backup.tar.gz -C /
+```
+
+## Building the image
+
+Clone the repository with:
+
+```console
+$ git clone https://github.com/logicaldoc/logicaldoc-ce.git
+```
+
+Change to the directory of the cloned repository:
+
+```console
+$ cd logicaldoc-ce
+```
+
+Execute Docker's build command:
+
+```console
+$ docker build -t logicaldoc/logicaldoc-ce .
+```
+
+Or using an apt cacher to speed up the build:
+
+```console
+$ docker build -t logicaldoc/logicaldoc-ce --build-arg APT_PROXY=172.18.0.1:3142 .
+```
+
+Replace the IP address `172.18.0.1` with the IP address of the Docker host used from which these commands are running.
+
 
 ## Docker-Compose
 Some docker-compose examples are available in the repository of this container on GitHub https://github.com/logicaldoc/logicaldoc-ce
