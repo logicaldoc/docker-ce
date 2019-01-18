@@ -26,6 +26,11 @@
         <entry key="dbhost" value="{{ DB_HOST | default('mysql-ld') }}"/>
         <entry key="dbmanualurl" value="{{ DB_MANUALURL | default('false') }}"/>
     </com.izforge.izpack.panels.userinput.UserInputPanel>
+    <com.izforge.izpack.panels.userinput.UserInputPanel id="panel_database3">
+      <entry key="dbpassword" value="{{ DB_PASSWORD | default('changeme') }}"/>
+      <entry key="dbusername" value="{{ DB_USER | default('ldoc') }}"/>
+      <entry key="dburl" value="{{ DB_URL | default('') }}"/>
+    </com.izforge.izpack.panels.userinput.UserInputPanel>    
     <com.izforge.izpack.panels.userinput.UserInputPanel id="panel_application">
         <entry key="shutdownport" value="9005"/>
         <entry key="maxmemory" value="{{ LDOC_MEMORY | default('2000') }}"/>
