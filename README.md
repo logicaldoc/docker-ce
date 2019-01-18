@@ -24,7 +24,7 @@ LogicalDOC CE is 100% free software, supports all major DBMS and this particular
 **Start a LogicalDOC instance linked to a MySQL container**
 1. Run the MySQL container
 ```Shell
-docker run -d --name=mysql-ld --env="MYSQL_ROOT_PASSWORD=mypassword" --env="MYSQL_DATABASE=logicaldoc" --env="MYSQL_USER=ldoc" --env="MYSQL_PASSWORD=changeme" mysql
+docker run -d --name=mysql-ld --env="MYSQL_ROOT_PASSWORD=mypassword" --env="MYSQL_DATABASE=logicaldoc" --env="MYSQL_USER=ldoc" --env="MYSQL_PASSWORD=changeme" mysql:5.7
 ```
 
 2. Run the LogicalDOC container
@@ -65,7 +65,7 @@ In this case the physical location of the ``logicaldoc-conf`` volume is ``/var/l
 The LogicalDOC image uses environment variables that allow to obtain a more specific setup.
 
 * **LDOC_MEMORY**: memory allocated for LogicalDOC expressed in MB (default is 2000)
-* **DB_ENGINE**: the database type, possible vaues are: mysql(default), postgres
+* **DB_ENGINE**: the database type, possible vaues are: mysql(default), mssql, oracle, postgres
 * **DB_HOST**: the database server host (default is 'mysql-ld')
 * **DB_PORT**: the database communication port (default is 3306)
 * **DB_NAME**: the database name (default is 'logicaldoc')
