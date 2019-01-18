@@ -72,6 +72,8 @@ The LogicalDOC image uses environment variables that allow to obtain a more spec
 * **DB_INSTANCE**: some databases require the instance specification
 * **DB_USER**: the username (default is 'ldoc')
 * **DB_PASSWORD**: the password (default is 'changeme')
+* **DB_MANUALURL**: must be true when using DB_URL (default is 'false')
+* **DB_URL**: the jdbc url to connect to the database (remember to set DB_MANUALURL to 'true')
 
 ## Stopping and starting the container
 Assuming that you have assigned the "logicaldoc-ce" alias to the container
@@ -281,6 +283,17 @@ services:
 [![Try in PWD](https://github.com/play-with-docker/stacks/raw/cff22438cb4195ace27f9b15784bbb497047afa7/assets/images/button.png)](http://play-with-docker.com?stack=https://raw.githubusercontent.com/logicaldoc/logicaldoc-ce/master/stack.yml)
 
 Run `docker stack deploy -c stack.yml logicaldocce` , wait for it to initialize completely, and visit `http://swarm-ip:8080`, `http://localhost:8080`, or `http://host-ip:8080` (as appropriate).
+
+## Shell Access
+
+For debugging and maintenance purposes you may want access the containers shell. If you are using Docker version `1.3.0` or higher you can access a running containers shell by starting `bash` using `docker exec`.
+
+Assuming that you have assigned the "logicaldoc-ce" alias to the container:
+
+```bash
+docker exec -it logicaldoc-ce bash
+```
+
 
 
 
