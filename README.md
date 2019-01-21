@@ -1,3 +1,5 @@
+[![Docker pulls](https://img.shields.io/docker/pulls/logicaldoc/logicaldoc-ce.svg?maxAge=3600)](https://hub.docker.com/r/logicaldoc/logicaldoc-ce/) [![Docker Stars](https://img.shields.io/docker/stars/logicaldoc/logicaldoc-ce.svg?maxAge=3600)](https://hub.docker.com/r/logicaldoc/logicaldoc-ce/) [![Docker layers](https://images.microbadger.com/badges/image/logicaldoc/logicaldoc-ce.svg)](https://microbadger.com/images/logicaldoc/logicaldoc-ce.svg) [![Docker version](https://images.microbadger.com/badges/version/logicaldoc/logicaldoc-ce.svg)](https://microbadger.com/images/logicaldoc/logicaldoc-ce) ![License](https://img.shields.io/badge/License-LGPL%20v3-green.svg?maxAge=3600)
+
 # LogicalDOC Community Edition (AKA LogicalDOC CE)
 A repository for LogicalDOC DMS - Community Edition - Docker image https://www.logicaldoc.com/download-logicaldoc-community
 Note: This image requires to be connected to an external database
@@ -74,6 +76,12 @@ The LogicalDOC image uses environment variables that allow to obtain a more spec
 * **DB_PASSWORD**: the password (default is 'changeme')
 * **DB_MANUALURL**: must be true when using DB_URL (default is 'false')
 * **DB_URL**: the jdbc url to connect to the database (remember to set DB_MANUALURL to 'true')
+
+## Using Oracle or MS SQL as Database engine
+At the following address you can find some examples of this container configured to use Oracle Database or MS SQL (Microsoft SQL server).
+Also, in some of these examples the DB_URL and DB_MANUALURL properties are explicitly used for database configuration
+
+https://wiki.logicaldoc.com/wiki/Docker
 
 ## Stopping and starting the container
 Assuming that you have assigned the "logicaldoc-ce" alias to the container
