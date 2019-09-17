@@ -2,7 +2,7 @@ version: '2'
 services:
  db:
   container_name: mysql-ld
-  image: mysql:5.7
+  image: mysql:8.0
   volumes:
    - ldoc_db:/var/lib/mysql
   ports:
