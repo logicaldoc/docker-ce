@@ -18,8 +18,8 @@ LogicalDOC CE is 100% free software, supports all major DBMS and this particular
 ![LogicalDOC CE](https://www.logicaldoc.com/images/assets/LogicalDocWhiteH02-167.png)
 
 * **SourceForge project**: https://sourceforge.net/projects/logicaldoc/
-* **Manuals**: http://docs.logicaldoc.com   
-* **Forums**: http://forums.logicaldoc.com
+* **Manuals**: https://docs.logicaldoc.com   
+* **Forums**: https://forums.logicaldoc.com
 
 ### How to use this image
 

@@ -4,7 +4,7 @@ FROM openjdk:11-jdk
 MAINTAINER LogicalDOC <packagers@logicaldoc.com>
 
 # set default variables for LogicalDOC install
-ENV LDOC_VERSION="8.3.2"
+ENV LDOC_VERSION="8.3.4"
 ENV LDOC_MEMORY="2000"
 ENV DEBIAN_FRONTEND="noninteractive"
 ENV CATALINA_HOME="/opt/logicaldoc/tomcat"
