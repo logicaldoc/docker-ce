@@ -1,12 +1,11 @@
 # LogicalDOC Document Management System ( https://www.logicaldoc.com )
-FROM openjdk:11-jdk
+FROM openjdk:15-jdk-alpine
 
-MAINTAINER LogicalDOC <packagers@logicaldoc.com>
+LABEL maintainer="LogicalDOC <packagers@logicaldoc.com>"
 
 # set default variables for LogicalDOC install
 ENV LDOC_VERSION="8.3.4"
 ENV LDOC_MEMORY="2000"
-ENV DEBIAN_FRONTEND="noninteractive"
 ENV CATALINA_HOME="/opt/logicaldoc/tomcat"
 ENV DB_ENGINE="mysql"
 ENV DB_HOST="mysql-ld"
@@ -25,18 +24,15 @@ COPY auto-install.j2 /opt/logicaldoc
 COPY wait-for-it.sh /
 COPY wait-for-postgres.sh /
 
-# prepare system for java installation (to be removed)
-RUN apt-get update && \
-  apt-get -y install software-properties-common
-
 # Packages needed to install LogicalDOC CE
-RUN apt-get -y install \
+RUN apk add \
+    bash \
     curl \    
     unzip \    
     imagemagick \
     ghostscript \
-    python-jinja2 \
-    python-pip \
+    py3-jinja2 \
+    py3-pip \
     mysql-client \
     postgresql-client \
     vim \
@@ -53,7 +49,7 @@ RUN curl -L https://sourceforge.net/projects/logicaldoc/files/distribution/Logic
 #	rm /opt/logicaldoc/logicaldoc-community-installer-${LDOC_VERSION}.zip
 
 # Install j2cli for the transformation of the templates (Jinja2)
-RUN pip install j2cli
+RUN pip3 install j2cli
 
 #volumes for persistent storage
 VOLUME /opt/logicaldoc/conf
