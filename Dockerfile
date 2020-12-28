@@ -4,7 +4,7 @@ FROM openjdk:11-jdk
 MAINTAINER LogicalDOC <packagers@logicaldoc.com>
 
 # set default variables for LogicalDOC install
-ENV LDOC_VERSION="8.4.2"
+ENV LDOC_VERSION="8.5.2"
 ENV LDOC_MEMORY="2000"
 ENV DEBIAN_FRONTEND="noninteractive"
 ENV CATALINA_HOME="/opt/logicaldoc/tomcat"
@@ -43,7 +43,7 @@ RUN apt-get -y install \
     nano
 
 # Download and unzip LogicalDOC CE installer 
-RUN curl -L https://sourceforge.net/projects/logicaldoc/files/distribution/LogicalDOC%20CE%208.4/logicaldoc-community-installer-${LDOC_VERSION}.zip/download \
+RUN curl -L https://sourceforge.net/projects/logicaldoc/files/distribution/LogicalDOC%20CE%208.5/logicaldoc-community-installer-${LDOC_VERSION}.zip/download \
     -o /opt/logicaldoc/logicaldoc-community-installer-${LDOC_VERSION}.zip && \
     unzip /opt/logicaldoc/logicaldoc-community-installer-${LDOC_VERSION}.zip -d /opt/logicaldoc && \
     rm /opt/logicaldoc/logicaldoc-community-installer-${LDOC_VERSION}.zip
