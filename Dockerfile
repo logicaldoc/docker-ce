@@ -5,7 +5,7 @@ MAINTAINER LogicalDOC <packagers@logicaldoc.com>
 
 # set default variables for LogicalDOC install
 ENV LDOC_VERSION="8.6.1"
-ENV LDOC_MEMORY="2400"
+ENV LDOC_MEMORY="2000"
 ENV DEBIAN_FRONTEND="noninteractive"
 ENV CATALINA_HOME="/opt/logicaldoc/tomcat"
 ENV DB_ENGINE="mysql"
