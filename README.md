@@ -40,7 +40,7 @@ Then, access it via `http://localhost:8080` or `http://host-ip:8080` in a browse
 
 Notes:
 In the most recent versions of MySQL it is necessary to enable native authentication, otherwise LogicalDOC will not be able to connect. 
-To do this, simply add the default-authentication-plugin argument to the container launch parameters
+To do this, simply add the default-authentication-plugin command line argument to the container launch string
 e.g.:
 ```Shell
 docker run -d --name=mysql-ld -e MYSQL_ROOT_PASSWORD=mypassword -e MYSQL_DATABASE=logicaldoc -e MYSQL_USER=ldoc -e MYSQL_PASSWORD=changeme mysql:8.0.23 --default-authentication-plugin=mysql_native_password
