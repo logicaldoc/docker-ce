@@ -39,15 +39,15 @@ This image includes EXPOSE 8080 (the logicaldoc port). The default LogicalDOC co
 Then, access it via `http://localhost:8080` or `http://host-ip:8080` in a browser. Default User and Password are **admin** / **admin**.
 
 Notes:
-In the most recent versions of MySQL it is necessary to enable native authentication, otherwise Logicaldoc will not be able to connect. 
-To do this, simply add the default-authentication-plugin setting to the container launch parameters
+In the most recent versions of MySQL it is necessary to enable native authentication, otherwise LogicalDOC will not be able to connect. 
+To do this, simply add the default-authentication-plugin argument to the container launch parameters
 e.g.:
 ```Shell
-docker run -d --name=mysql-ld -e MYSQL_ROOT_PASSWORD=mypassword -e MYSQL_DATABASE=logicaldoc -e MYSQL_USER=ldoc -e MYSQL_PASSWORD=changeme --default-authentication-plugin=mysql_native_password mysql:8.0.23
+docker run -d --name=mysql-ld -e MYSQL_ROOT_PASSWORD=mypassword -e MYSQL_DATABASE=logicaldoc -e MYSQL_USER=ldoc -e MYSQL_PASSWORD=changeme mysql:8.0.23 --default-authentication-plugin=mysql_native_password
 ```
 or with the latest MySQL 8 image
 ```Shell
-docker run -d --name=mysql-ld -e MYSQL_ROOT_PASSWORD=mypassword -e MYSQL_DATABASE=logicaldoc -e MYSQL_USER=ldoc -e MYSQL_PASSWORD=changeme --default-authentication-plugin=mysql_native_password mysql:latest
+docker run -d --name=mysql-ld -e MYSQL_ROOT_PASSWORD=mypassword -e MYSQL_DATABASE=logicaldoc -e MYSQL_USER=ldoc -e MYSQL_PASSWORD=changeme mysql:latest --default-authentication-plugin=mysql_native_password
 ```
 
 
