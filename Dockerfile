@@ -42,7 +42,7 @@ RUN apt-get -y install \
     vim \
     nano
 
-# Download and unzip LogicalDOC CE installer 
+# Download and unzip LogicalDOC CE installer
 RUN curl -L https://sourceforge.net/projects/logicaldoc/files/distribution/LogicalDOC%20CE%208.7/logicaldoc-community-installer-${LDOC_VERSION}.zip/download \
     -o /opt/logicaldoc/logicaldoc-community-installer-${LDOC_VERSION}.zip && \
     unzip /opt/logicaldoc/logicaldoc-community-installer-${LDOC_VERSION}.zip -d /opt/logicaldoc && \
