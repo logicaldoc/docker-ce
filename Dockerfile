@@ -35,8 +35,8 @@ RUN apt-get -y install \
     unzip \    
     imagemagick \
     ghostscript \
-    python-jinja2 \
-    python-pip \
+    python3-jinja2 \
+    python3-pip \
     mariadb-client \
     postgresql-client \
     vim \
