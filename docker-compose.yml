@@ -3,6 +3,7 @@ services:
  db:
   container_name: mysql-ld
   image: mysql:8.0
+  command: --default-authentication-plugin=mysql_native_password
   volumes:
    - ldoc_db:/var/lib/mysql
   ports:
