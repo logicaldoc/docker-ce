@@ -1,10 +1,10 @@
 # LogicalDOC Document Management System ( https://www.logicaldoc.com )
-FROM openjdk:11-jdk
+FROM openjdk:23-jdk-slim-bullseye
 
 MAINTAINER LogicalDOC <packagers@logicaldoc.com>
 
 # set default variables for LogicalDOC install
-ENV LDOC_VERSION="8.7.3"
+ENV LDOC_VERSION="9.2.0"
 ENV LDOC_MEMORY="2500"
 ENV DEBIAN_FRONTEND="noninteractive"
 ENV CATALINA_HOME="/opt/logicaldoc/tomcat"
@@ -43,7 +43,7 @@ RUN apt-get -y install \
     nano
 
 # Download and unzip LogicalDOC CE installer
-RUN curl -L https://sourceforge.net/projects/logicaldoc/files/distribution/LogicalDOC%20CE%208.7/logicaldoc-community-installer-${LDOC_VERSION}.zip/download \
+RUN curl -L https://sourceforge.net/projects/logicaldoc/files/distribution/LogicalDOC%20CE%209.2/logicaldoc-community-installer-${LDOC_VERSION}.zip/download \
     -o /opt/logicaldoc/logicaldoc-community-installer-${LDOC_VERSION}.zip && \
     unzip /opt/logicaldoc/logicaldoc-community-installer-${LDOC_VERSION}.zip -d /opt/logicaldoc && \
     rm /opt/logicaldoc/logicaldoc-community-installer-${LDOC_VERSION}.zip
@@ -53,7 +53,7 @@ RUN curl -L https://sourceforge.net/projects/logicaldoc/files/distribution/Logic
 #	rm /opt/logicaldoc/logicaldoc-community-installer-${LDOC_VERSION}.zip
 
 # Install j2cli for the transformation of the templates (Jinja2)
-RUN pip install j2cli
+RUN pip3 install j2cli
 
 #volumes for persistent storage
 VOLUME /opt/logicaldoc/conf
