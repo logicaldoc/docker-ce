@@ -1,0 +1,31 @@
+version: '2'
+
+services:
+
+ db:
+  container_name: mariadb-ld
+  image: mariadb:10.6
+  ports:
+   - 3306:3306
+  environment:
+   - MARIADB_DATABASE=logicaldoc
+   - MARIADB_USER=ldoc
+   - MARIADB_PASSWORD=changeme
+   - MARIADB_ROOT_PASSWORD=driX!8UwR_4R
+
+ logicaldoc:
+  depends_on:
+   - db
+  command: ["./wait-for-it.sh", "mariadb-ld:3306", "-t", "30", "--", "/opt/logicaldoc/start-logicaldoc.sh", "run"]
+  container_name: logicaldoc-ce
+  image: logicaldoc/logicaldoc-ce
+  ports:
+   - 8080:8080
+  environment:
+   - LDOC_MEMORY=2000
+   - DB_HOST=mariadb-ld
+   - DB_NAME=logicaldoc
+   - DB_USER=ldoc
+   - DB_PASSWORD=changeme
+   - DB_PORT=3306
+   - DB_ENGINE=mariadb
